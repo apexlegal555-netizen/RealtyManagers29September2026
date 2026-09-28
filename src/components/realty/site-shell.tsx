@@ -4,11 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { to: "/about-us", label: "About Us" },
   { to: "/rera-verification", label: "RERA Verification" },
-  { to: "/franchises", label: "Franchise" },
-  { to: "/managers", label: "Managers" },
   { to: "/escrow", label: "Escrow" },
+  { to: "/franchises", label: "Franchise" },
+  { to: "/about-us", label: "About Us" },
+  { to: "/managers", label: "Managers" },
 ] as const;
 
 export function SiteHeader() {
