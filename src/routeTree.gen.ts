@@ -12,10 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutUsRouteImport } from './routes/about-us'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as EscrowRouteImport } from './routes/escrow'
 import { Route as FranchisesRouteImport } from './routes/franchises'
 import { Route as ManagersRouteImport } from './routes/managers'
+import { Route as NriRouteImport } from './routes/nri'
 import { Route as ReraVerificationRouteImport } from './routes/rera-verification'
+import { Route as SearchResultsRouteImport } from './routes/search-results'
 import { Route as CountriesCanadaRouteImport } from './routes/countries.canada'
 import { Route as CountriesIndiaRouteImport } from './routes/countries.india'
 import { Route as CountriesUsaRouteImport } from './routes/countries.usa'
@@ -35,11 +36,6 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EscrowRoute = EscrowRouteImport.update({
-  id: '/escrow',
-  path: '/escrow',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const FranchisesRoute = FranchisesRouteImport.update({
   id: '/franchises',
   path: '/franchises',
@@ -50,9 +46,19 @@ const ManagersRoute = ManagersRouteImport.update({
   path: '/managers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NriRoute = NriRouteImport.update({
+  id: '/nri',
+  path: '/nri',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ReraVerificationRoute = ReraVerificationRouteImport.update({
   id: '/rera-verification',
   path: '/rera-verification',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchResultsRoute = SearchResultsRouteImport.update({
+  id: '/search-results',
+  path: '/search-results',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CountriesCanadaRoute = CountriesCanadaRouteImport.update({
@@ -75,10 +81,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsRoute
   '/contact': typeof ContactRoute
-  '/escrow': typeof EscrowRoute
   '/franchises': typeof FranchisesRoute
   '/managers': typeof ManagersRoute
+  '/nri': typeof NriRoute
   '/rera-verification': typeof ReraVerificationRoute
+  '/search-results': typeof SearchResultsRoute
   '/countries/canada': typeof CountriesCanadaRoute
   '/countries/india': typeof CountriesIndiaRoute
   '/countries/usa': typeof CountriesUsaRoute
@@ -87,10 +94,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsRoute
   '/contact': typeof ContactRoute
-  '/escrow': typeof EscrowRoute
   '/franchises': typeof FranchisesRoute
   '/managers': typeof ManagersRoute
+  '/nri': typeof NriRoute
   '/rera-verification': typeof ReraVerificationRoute
+  '/search-results': typeof SearchResultsRoute
   '/countries/canada': typeof CountriesCanadaRoute
   '/countries/india': typeof CountriesIndiaRoute
   '/countries/usa': typeof CountriesUsaRoute
@@ -100,10 +108,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsRoute
   '/contact': typeof ContactRoute
-  '/escrow': typeof EscrowRoute
   '/franchises': typeof FranchisesRoute
   '/managers': typeof ManagersRoute
+  '/nri': typeof NriRoute
   '/rera-verification': typeof ReraVerificationRoute
+  '/search-results': typeof SearchResultsRoute
   '/countries/canada': typeof CountriesCanadaRoute
   '/countries/india': typeof CountriesIndiaRoute
   '/countries/usa': typeof CountriesUsaRoute
@@ -114,10 +123,11 @@ export interface FileRouteTypes {
     | '/'
     | '/about-us'
     | '/contact'
-    | '/escrow'
     | '/franchises'
     | '/managers'
+    | '/nri'
     | '/rera-verification'
+    | '/search-results'
     | '/countries/canada'
     | '/countries/india'
     | '/countries/usa'
@@ -126,10 +136,11 @@ export interface FileRouteTypes {
     | '/'
     | '/about-us'
     | '/contact'
-    | '/escrow'
     | '/franchises'
     | '/managers'
+    | '/nri'
     | '/rera-verification'
+    | '/search-results'
     | '/countries/canada'
     | '/countries/india'
     | '/countries/usa'
@@ -138,10 +149,11 @@ export interface FileRouteTypes {
     | '/'
     | '/about-us'
     | '/contact'
-    | '/escrow'
     | '/franchises'
     | '/managers'
+    | '/nri'
     | '/rera-verification'
+    | '/search-results'
     | '/countries/canada'
     | '/countries/india'
     | '/countries/usa'
@@ -151,10 +163,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutUsRoute: typeof AboutUsRoute
   ContactRoute: typeof ContactRoute
-  EscrowRoute: typeof EscrowRoute
   FranchisesRoute: typeof FranchisesRoute
   ManagersRoute: typeof ManagersRoute
+  NriRoute: typeof NriRoute
   ReraVerificationRoute: typeof ReraVerificationRoute
+  SearchResultsRoute: typeof SearchResultsRoute
   CountriesCanadaRoute: typeof CountriesCanadaRoute
   CountriesIndiaRoute: typeof CountriesIndiaRoute
   CountriesUsaRoute: typeof CountriesUsaRoute
@@ -183,13 +196,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/escrow': {
-      id: '/escrow'
-      path: '/escrow'
-      fullPath: '/escrow'
-      preLoaderRoute: typeof EscrowRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/franchises': {
       id: '/franchises'
       path: '/franchises'
@@ -204,11 +210,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ManagersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nri': {
+      id: '/nri'
+      path: '/nri'
+      fullPath: '/nri'
+      preLoaderRoute: typeof NriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rera-verification': {
       id: '/rera-verification'
       path: '/rera-verification'
       fullPath: '/rera-verification'
       preLoaderRoute: typeof ReraVerificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search-results': {
+      id: '/search-results'
+      path: '/search-results'
+      fullPath: '/search-results'
+      preLoaderRoute: typeof SearchResultsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/countries/canada': {
@@ -239,10 +259,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutUsRoute: AboutUsRoute,
   ContactRoute: ContactRoute,
-  EscrowRoute: EscrowRoute,
   FranchisesRoute: FranchisesRoute,
   ManagersRoute: ManagersRoute,
+  NriRoute: NriRoute,
   ReraVerificationRoute: ReraVerificationRoute,
+  SearchResultsRoute: SearchResultsRoute,
   CountriesCanadaRoute: CountriesCanadaRoute,
   CountriesIndiaRoute: CountriesIndiaRoute,
   CountriesUsaRoute: CountriesUsaRoute,

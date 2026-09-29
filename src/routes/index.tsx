@@ -1,8 +1,10 @@
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, BadgeCheck, Building2, Landmark, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/realty/reveal";
 import { CtaBand } from "@/components/realty/cta-band";
+import { PropertySearch } from "@/components/realty/property-search";
 import hero from "@/assets/realty-hero.jpg";
 import building from "@/assets/realty-building.jpg";
 
@@ -25,77 +27,37 @@ const offerings = [
 ];
 
 function HomePage() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoFailed, setVideoFailed] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const resumePlayback = () => {
+      if (document.visibilityState === "visible") {
+        void video.play().catch(() => {});
+      }
+    };
+
+    video.addEventListener("canplay", resumePlayback);
+    document.addEventListener("visibilitychange", resumePlayback);
+    window.addEventListener("pageshow", resumePlayback);
+    resumePlayback();
+
+    return () => {
+      video.removeEventListener("canplay", resumePlayback);
+      document.removeEventListener("visibilitychange", resumePlayback);
+      window.removeEventListener("pageshow", resumePlayback);
+    };
+  }, []);
+
   return <main>
     <section className="hero" aria-label="Realty Managers introduction">
       <img src={hero} alt="Contemporary residential architecture overlooking an Indian coastal city" className="hero-image" width={1920} height={1088} fetchPriority="high" />
       <div className="hero-shade" aria-hidden="true" />
       <div className="hero-content"><Reveal><span className="eyebrow light-eyebrow"><span className="eyebrow-line" />A NEW STANDARD IN REAL ESTATE</span><h1>Real estate,<br />with more<br />certainty.</h1><p>Where informed decisions, trusted partnerships, and stronger safeguards come together.</p><Link className="hero-link" to="/rera-verification">Explore our approach <ArrowUpRight /></Link></Reveal></div>
-      <div className="hero-search">
-        <div className="hero-search-field">
-          <span className="hero-search-label">Property Type</span>
-          <div className="hero-search-select-wrapper">
-            <select aria-label="Property Type">
-              <option value="">Any</option>
-              <option value="apartment">Apartment</option>
-              <option value="villa">Villa</option>
-              <option value="commercial">Commercial</option>
-            </select>
-            <ChevronDown size={14} />
-          </div>
-        </div>
-        
-        <div className="hero-search-field">
-          <span className="hero-search-label">Bedroom</span>
-          <div className="hero-search-select-wrapper">
-            <select aria-label="Bedroom">
-              <option value="">Any</option>
-              <option value="1">1 Bed</option>
-              <option value="2">2 Beds</option>
-              <option value="3">3 Beds</option>
-              <option value="4+">4+ Beds</option>
-            </select>
-            <ChevronDown size={14} />
-          </div>
-        </div>
-
-        <div className="hero-search-field">
-          <span className="hero-search-label">Country</span>
-          <div className="hero-search-select-wrapper">
-            <select aria-label="Country">
-              <option value="">Any</option>
-              <option value="india">India</option>
-              <option value="usa">USA</option>
-              <option value="canada">Canada</option>
-            </select>
-            <ChevronDown size={14} />
-          </div>
-        </div>
-
-        <div className="hero-search-field">
-          <span className="hero-search-label">Starting From</span>
-          <div className="hero-search-price-group">
-            <div className="hero-search-select-wrapper" style={{ width: '60px' }}>
-              <select aria-label="Currency">
-                <option value="INR">INR</option>
-                <option value="USD">USD</option>
-                <option value="CAD">CAD</option>
-              </select>
-              <ChevronDown size={14} />
-            </div>
-            <div className="hero-search-select-wrapper" style={{ flex: 1 }}>
-              <select aria-label="Starting Price">
-                <option value="">Any</option>
-                <option value="500000">500,000</option>
-                <option value="1000000">1,000,000</option>
-                <option value="5000000">5,000,000</option>
-              </select>
-              <ChevronDown size={14} />
-            </div>
-          </div>
-        </div>
-
-        <button className="hero-search-btn">Search Properties</button>
-      </div>
+      <PropertySearch />
 
       <div className="hero-bottom"><div className="content-width hero-bottom-inner"><span className="hero-scroll">Scroll to discover</span><span className="hero-caption">BUILT ON TRUST. MADE FOR PROGRESS.</span></div></div><div className="hero-pagination" aria-hidden="true" />
     </section>
@@ -103,7 +65,23 @@ function HomePage() {
       <div className="content-width intro-grid">
         <Reveal>
           <span className="eyebrow"><span className="eyebrow-line" />THE REALTY MANAGERS PERSPECTIVE</span>
-          <video autoPlay loop muted playsInline src="/generated_video.mp4" style={{ width: '100%', borderRadius: '4px', marginTop: '30px', objectFit: 'cover' }} aria-label="Realty Managers Perspective" />
+          {videoFailed ? (
+            <img src={building} alt="Realty Managers property" style={{ width: "100%", borderRadius: "4px", marginTop: "30px" }} />
+          ) : (
+            <video
+              ref={videoRef}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              poster={building}
+              onError={() => setVideoFailed(true)}
+              src="/generated_video.mp4"
+              style={{ width: "100%", borderRadius: "4px", marginTop: "30px", objectFit: "cover" }}
+              aria-label="Realty Managers Perspective"
+            />
+          )}
         </Reveal>
         <Reveal delay={0.1}>
           <h2>Confidence should be the foundation of every property decision.</h2>

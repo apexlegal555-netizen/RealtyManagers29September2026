@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 const links = [
+  { to: "/", label: "Home" },
   { to: "/rera-verification", label: "RERA Verification" },
-  { to: "/escrow", label: "Escrow" },
+  { to: "/nri", label: "NRI" },
   { to: "/franchises", label: "Franchise" },
   { to: "/about-us", label: "About Us" },
   { to: "/managers", label: "Managers" },
@@ -59,5 +60,5 @@ export function SiteHeader() {
 }
 
 export function SiteFooter() {
-  return <footer className="site-footer"><div className="footer-inner"><div><Link to="/" className="brand brand-footer"><span className="brand-mark" aria-hidden="true"><span /><span /><span /></span><span className="brand-text">REALTY<span>MANAGERS</span></span></Link><p>Clarity in every real estate decision.</p></div><nav aria-label="Footer navigation"><Link to="/rera-verification">RERA Verification</Link><Link to="/franchises">Franchise</Link><Link to="/managers">Managers</Link><Link to="/escrow">Escrow</Link><Link to="/contact">Contact</Link></nav></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Realty Managers. All rights reserved.</span><span>Built on trust. Designed for what’s next.</span></div></footer>;
+  return <footer className="site-footer"><div className="footer-inner"><div><Link to="/" className="brand brand-footer"><span className="brand-mark" aria-hidden="true"><span /><span /><span /></span><span className="brand-text">REALTY<span>MANAGERS</span></span></Link><p>Clarity in every real estate decision.</p></div><nav aria-label="Footer navigation"><Link to="/">Home</Link><Link to="/rera-verification">RERA Verification</Link><Link to="/franchises">Franchise</Link><Link to="/managers">Managers</Link><Link to="/nri">NRI</Link><Link to="/contact">Contact</Link></nav></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Realty Managers. All rights reserved.</span><span>Built on trust. Designed for what’s next.</span></div></footer>;
 }
